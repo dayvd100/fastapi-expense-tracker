@@ -13,3 +13,22 @@ def create_transaction(db: Session, transaction: TransactionCreate):
 
 def get_transactions(db: Session):
     return db.query(Transactions).all()
+
+
+def get_transaction(db: Session, transaction_id: int):
+    db_transaction = (
+        db.query(Transactions).filter(Transactions.id == transaction_id).first()
+    )
+    return db_transaction
+
+
+def delete_transaction(db: Session, transaction_id: int):
+    db_transaction = (
+        db.query(Transactions).filter(Transactions.id == transaction_id).first()
+    )
+    if db_transaction:
+        db.delete(db_transaction)
+        db.commit()
+        return {"message": "Transaction deleted successfully"}
+    else:
+        return {"error": "Transaction not found"}

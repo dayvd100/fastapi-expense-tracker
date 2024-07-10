@@ -1,17 +1,15 @@
 from pydantic import BaseModel
 
 
-class TransactionBase(BaseModel):
-    name_transaction: str
+class TransactionCreate(BaseModel):
     amount_transaction: float
+    name_transaction: str
 
 
-class TransactionCreate(TransactionBase):
-    pass
-
-
-class TransactionSchema(TransactionBase):
+class TransactionSchema(BaseModel):
     id: int
+    amount_transaction: float
+    name_transaction: str
 
     class Config:
         orm_mode = True
